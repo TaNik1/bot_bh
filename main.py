@@ -1,16 +1,14 @@
-# This is a sample Python script.
+import asyncio
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from aiogram import Bot, Dispatcher, executor
+from config import BOT_TOCKEN
+
+loop = asyncio.get_event_loop()
+bot = Bot(token=BOT_TOCKEN, parse_mode="HTML")
+dp = Dispatcher(bot, loop=loop)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    from kneco import dp, AlbumMiddleware
+    dp.middleware.setup(AlbumMiddleware())
+    executor.start_polling(dp, skip_updates=True)
