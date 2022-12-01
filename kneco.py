@@ -65,8 +65,10 @@ async def start(message: types.Message):
 
 @dp.message_handler(commands=['send'])
 async def database_for_stupid_admin(message: types.Message):
-    db = types.InputFile('users.db')
-    await bot.send_document(message.from_user.id, db)
+    if message.from_user.id == ADMIN_ID:
+        if message.reply_to_message:
+            for user in User.select():
+                await bot.send_message(user.tg_id, message.reply_to_message.text)
 
 
 @dp.message_handler(commands=['referal'])
