@@ -68,7 +68,10 @@ async def database_for_stupid_admin(message: types.Message):
     if message.from_user.id == ADMIN_ID:
         if message.reply_to_message:
             for user in User.select():
-                await bot.send_message(user.tg_id, message.reply_to_message.text)
+                try:
+                    await bot.send_message(user.tg_id, message.reply_to_message.text)
+                except:
+                    pass
 
 
 @dp.message_handler(commands=['referal'])
