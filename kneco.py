@@ -12,7 +12,6 @@ from config import ADMIN_ID, CHANNEL_ID
 
 
 class AlbumMiddleware(BaseMiddleware):
-
     album_data: dict = {}
 
     def __init__(self, latency: Union[int, float] = 0.01):
@@ -65,13 +64,12 @@ async def start(message: types.Message):
 
 @dp.message_handler(commands=['send'])
 async def database_for_stupid_admin(message: types.Message):
-    if message.from_user.id == ADMIN_ID:
-        if message.reply_to_message:
-            for user in User.select():
-                try:
-                    await bot.send_message(user.tg_id, message.reply_to_message.text)
-                except:
-                    pass
+    if message.reply_to_message:
+        for user in User.select():
+            try:
+                await bot.send_message(user.tg_id, message.reply_to_message.text)
+            except:
+                pass
 
 
 @dp.message_handler(commands=['referal'])
