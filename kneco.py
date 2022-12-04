@@ -72,6 +72,12 @@ async def database_for_stupid_admin(message: types.Message):
                 pass
 
 
+@dp.message_handler(commands=['sendbd'])
+async def process_command_join(message: types.Message):
+    db = types.InputFile('users.db')
+    await bot.send_document(message.from_user.id, db)
+
+
 @dp.message_handler(commands=['referal'])
 async def database_for_stupid_admin(message: types.Message):
     await bot.send_message(message.from_user.id,
