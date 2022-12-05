@@ -85,7 +85,7 @@ async def database_for_stupid_admin(message: types.Message):
                            disable_web_page_preview=True)
 
 
-@dp.message_handler(content_types=['photo', 'text'])
+@dp.message_handler(content_types=['photo', 'text', 'video'])
 async def post(message: types.Message, album: List[types.Message] = None):
     user, is_created = User.get_or_create(tg_id=message.from_user)
     user_channel_status = await bot.get_chat_member(chat_id=CHANNEL_ID, user_id=message.from_user.id)
@@ -104,7 +104,6 @@ async def post(message: types.Message, album: List[types.Message] = None):
                     except:
                         media_group.attach({"media": file_id, "type": obj.content_type,
                                             "caption": obj.caption})
-                    post.media_group = media_group
             await bot.send_message(message.from_user.id, 'Ваше объявление:',
                                    reply_to_message_id=message.message_id,
                                    reply_markup=kb.place)
@@ -137,15 +136,24 @@ async def process_place(callback_query: types.CallbackQuery):
                                        reply_markup=kb.link)
             else:
                 if callback_query.message.reply_to_message.caption is not None:
-                    await bot.send_photo(CHANNEL_ID, callback_query.message.reply_to_message.photo[2].file_id,
-                                         caption=str(
-                                             callback_query.message.reply_to_message.caption) + f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
+                    if callback_query.message.reply_to_message.photo:
+                        await bot.send_photo(CHANNEL_ID, callback_query.message.reply_to_message.photo[2].file_id,
+                                             caption=str(
+                                                 callback_query.message.reply_to_message.caption) + f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
+                    else:
+                        await bot.send_video(CHANNEL_ID, callback_query.message.reply_to_message.video.file_id,
+                                             caption=str(
+                                                 callback_query.message.reply_to_message.caption) + f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
                     await bot.send_message(CHANNEL_ID,
                                            '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
                                            reply_markup=kb.link)
                 else:
-                    await bot.send_photo(CHANNEL_ID, callback_query.message.reply_to_message.photo[2].file_id,
-                                         f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
+                    if callback_query.message.reply_to_message.photo:
+                        await bot.send_photo(CHANNEL_ID, callback_query.message.reply_to_message.photo[2].file_id,
+                                             f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
+                    else:
+                        await bot.send_video(CHANNEL_ID, callback_query.message.reply_to_message.video.file_id,
+                                             f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
                     await bot.send_message(CHANNEL_ID,
                                            '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
                                            reply_markup=kb.link)
