@@ -153,7 +153,7 @@ async def process_place(callback_query: types.CallbackQuery):
                                              f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
                     else:
                         await bot.send_video(CHANNEL_ID, callback_query.message.reply_to_message.video.file_id,
-                                             f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
+                                             caption=f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
                     await bot.send_message(CHANNEL_ID,
                                            '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
                                            reply_markup=kb.link)
