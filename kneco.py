@@ -128,12 +128,12 @@ async def process_place(callback_query: types.CallbackQuery):
         try:
             await bot.send_message(CHANNEL_ID,
                                    callback_query.message.reply_to_message.text + f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
-            await bot.send_message(CHANNEL_ID, '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
+            await bot.send_message(CHANNEL_ID, '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin\n<b>Лучший VapeShop</b> - @vapeshopnation',
                                    reply_markup=kb.link)
         except:
             if callback_query.message.reply_to_message.media_group_id:
                 await bot.send_media_group(CHANNEL_ID, post.media_group)
-                await bot.send_message(CHANNEL_ID, '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
+                await bot.send_message(CHANNEL_ID, '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin\n<b>Лучший VapeShop</b> - @vapeshopnation',
                                        reply_markup=kb.link)
             else:
                 if callback_query.message.reply_to_message.caption is not None:
@@ -146,7 +146,7 @@ async def process_place(callback_query: types.CallbackQuery):
                                              caption=str(
                                                  callback_query.message.reply_to_message.caption) + f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
                     await bot.send_message(CHANNEL_ID,
-                                           '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
+                                           '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin\n<b>Лучший VapeShop</b> - @vapeshopnation',
                                            reply_markup=kb.link)
                 else:
                     if callback_query.message.reply_to_message.photo:
@@ -156,7 +156,7 @@ async def process_place(callback_query: types.CallbackQuery):
                         await bot.send_video(CHANNEL_ID, callback_query.message.reply_to_message.video.file_id,
                                              caption=f'\n<b>Автор</b>: <a href="tg://user?id={callback_query.message.chat.id}">{callback_query.message.chat.first_name}</a>')
                     await bot.send_message(CHANNEL_ID,
-                                           '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin',
+                                           '<b>Наш чат</b> - @ekbvape_chat\n<b>Реклама</b> - @ekbvape_admin\n<b>Лучший VapeShop</b> - @vapeshopnation',
                                            reply_markup=kb.link)
         await bot.delete_message(callback_query.from_user.id, callback_query.message.message_id)
         await bot.send_message(callback_query.from_user.id, txt.end)
