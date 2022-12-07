@@ -104,6 +104,7 @@ async def post(message: types.Message, album: List[types.Message] = None):
                     except:
                         media_group.attach({"media": file_id, "type": obj.content_type,
                                             "caption": obj.caption})
+                    post.media_group = media_group
             await bot.send_message(message.from_user.id, 'Ваше объявление:',
                                    reply_to_message_id=message.message_id,
                                    reply_markup=kb.place)
