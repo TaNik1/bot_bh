@@ -102,7 +102,7 @@ async def post(message: types.Message, album: List[types.Message] = None):
                     try:
                         if i == 0:
                             media_group.attach({"media": file_id, "type": obj.content_type,
-                                                "caption": obj.caption + f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>'} if obj.caption else f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>'})
+                                                "caption": obj.caption + f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>' if obj.caption else f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>'})
                         else:
                             media_group.attach({"media": file_id, "type": obj.content_type})
                         i += 1
