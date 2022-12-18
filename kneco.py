@@ -93,14 +93,19 @@ async def post(message: types.Message, album: List[types.Message] = None):
         if user.time <= dt.datetime.now():
             if message.media_group_id:
                 media_group = types.MediaGroup()
+                i = 0
                 for obj in album:
                     if obj.photo:
                         file_id = obj.photo[-1].file_id
                     else:
                         file_id = obj[obj.content_type].file_id
                     try:
-                        media_group.attach({"media": file_id, "type": obj.content_type,
-                                            "caption": obj.caption + f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>'})
+                        if i == 0:
+                            media_group.attach({"media": file_id, "type": obj.content_type,
+                                                "caption": obj.caption + f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>'} if obj.caption else f'\n<b>Автор</b>: <a href="tg://user?id={message.chat.id}">{message.chat.first_name}</a>'})
+                        else:
+                            media_group.attach({"media": file_id, "type": obj.content_type})
+                        i += 1
                     except:
                         media_group.attach({"media": file_id, "type": obj.content_type,
                                             "caption": obj.caption})
